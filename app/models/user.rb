@@ -1,9 +1,13 @@
 class User < ApplicationRecord
+  enum role: [:student, :teacher, :admin]
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
     :validatable, :confirmable
 
+  has_many :questions
+
   validates :name, presence: true
-  validates :email, format: {with: Regexp.new(Settings.EMAIL_REGEX)},
+  validates :email, format: {with: Regexp.new(Settings.validations.email_regex)},
     uniqueness: true
   validates :phone, presence: true
   validates :avatar, presence: true

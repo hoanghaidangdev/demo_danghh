@@ -2,6 +2,15 @@
   <a class="navbar-brand" href="#">Logo</a>
   <ul class="navbar-nav ml-auto">
     <% if user_signed_in? %>
+      <% if current_user.teacher? %>
+        <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Question</a>
+      <div class="dropdown-menu">
+        <%= link_to "Questions list", teachers_questions_path, class: 'dropdown-item' %>
+        <%= link_to "New question", new_teachers_question_path, class: 'dropdown-item' %>
+      </div>
+    </li>
+      <% end %>
       <li class="nav-item">
         <%= link_to "Profile", edit_user_registration_path, class: "nav-link" %>
       </li>

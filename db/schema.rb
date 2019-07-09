@@ -10,7 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190708022535) do
+ActiveRecord::Schema.define(version: 20190711032234) do
+
+  create_table "answers", force: :cascade do |t|
+    t.string "option"
+    t.boolean "is_true", default: false
+    t.integer "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "exam_questions", force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "exam_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_exam_questions_on_exam_id"
+    t.index ["question_id"], name: "index_exam_questions_on_question_id"
+  end
+
+  create_table "exams", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id"
+    t.string "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "subject_id"
+    t.index ["subject_id"], name: "index_questions_on_subject_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
@@ -23,7 +64,7 @@ ActiveRecord::Schema.define(version: 20190708022535) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "name"
-    t.string "role"
+    t.integer "role", default: 0
     t.string "gender"
     t.string "avatar"
     t.string "phone"

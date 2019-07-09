@@ -1,1 +1,6 @@
-EMAIL_REGEX: (\A([a-z]*\s*)*\<*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\>*\Z)
+validations:
+  email_regex: (\A([a-z]*\s*)*\<*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\>*\Z)
+  strings:
+    max_length: 255
+  texts:
+    max_length: 65536

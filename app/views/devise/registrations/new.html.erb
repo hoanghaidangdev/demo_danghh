@@ -39,7 +39,7 @@
     <div class="form-group">
       <%= f.label :avatar %>
       <div class="custom-file">
-        <%= f.file_field :avatar, class: "custom-file-input"%>
+        <%= f.file_field :avatar, class: "custom-file-input" %>
         <%= f.label :avatar, "Choose file", class: "custom-file-label"%> <br>
       </div>
       <script>
@@ -52,7 +52,7 @@
 
     <div class="form-group">
       <div class="custom-control custom-checkbox">
-          <%= f.check_box :role, class: "custom-control-input" %>
+          <%= f.check_box :role, {class: "custom-control-input"}, "teacher", "student" %>
           <%= f.label :role, "I'm teacher" , class: "custom-control-label"%>
         </div>
     </div>
