@@ -1,0 +1,8 @@
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <div class="input-group-text">
+      <%= f.check_box :is_true, {}, true, false %>
+    </div>
+  </div>
+  <%= f.text_field :option, class: 'form-control', placeholder: 'Enter the answer', value: answer ? answer.option : "" %>
+</div>

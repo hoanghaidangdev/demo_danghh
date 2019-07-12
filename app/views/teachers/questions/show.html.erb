@@ -1,0 +1,37 @@
+<table class="table table-borderless">
+  <tbody>
+    <tr>
+      <td class="align-top"><b>Question</b></td>
+      <td><p class="pl-3"><%= @question.content %></p></td>
+    </tr>
+    <tr>
+      <td class="align-top"><b>Subject</b></td>
+      <td><p class="pl-3"><%= @question.subject.name %></p></td>
+    </tr>
+    <% unless @question.file_url.nil? %>
+      <tr>
+        <td class="align-top"><b>File attachment</b></td>
+        <td><p class="pl-3"><%= link_to File.basename(@question.file_url), @question.file_url %></p></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td class="align-top"><b>Answers</b></td>
+      <td>
+        <ul class="list-group pl-3 list-group-flush">
+          <% @question.answers.each do |answer| %>
+            <li class= "list-group-item">
+              <% if answer.is_true %>
+                <%= fa_icon "check-circle" %>
+                <%= answer.option %>
+              <% else %>
+                <p class= "pl-3 mb-0">
+                  <%= answer.option %>
+                </p>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>

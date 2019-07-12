@@ -1,0 +1,35 @@
+<div class="w-50 m-auto">
+  <h2 class="text-center mt-5">Edit question</h2>
+  <%= form_for(@question, url: teachers_question_path(@question)) do |f| %>
+    <div class="form-group">
+      <%= f.label :subject %>
+      <%= f.select :subject_id, Subject.all.collect {|subject| [subject.name, subject.id]}, {}, {class: "custom-select", selected: @question.subject.id} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :content, "Question" %>
+      <%= f.text_area :content, class: "form-control", placeholder: "Enter the question", value: @question.content, rows: 5 %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :file %>
+      <div class="custom-file">
+        <%= f.file_field :file, class: "custom-file-input", value: @question.file, onchange: "displayFileName()" %>
+        <%= f.label :file, @question.file.nil? ? "Choose file" : @question.file.to_s.split("/").pop, class: "custom-file-label" %> <br>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Answers</label>
+      <% @question.answers.each do |answer| %>
+        <%= f.fields_for :answers, answer do |ff| %>
+          <%= render "answer_fields", f: ff, answer: answer %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Update", class: "btn btn-primary btn-block" %>
+    </div>
+  <% end %>
+</div>

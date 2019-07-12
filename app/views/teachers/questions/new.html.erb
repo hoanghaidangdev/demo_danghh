@@ -1,0 +1,33 @@
+<div class="w-50 m-auto">
+  <h2 class="text-center mt-5">Create new question</h2>
+  <%= form_for(@question, url: teachers_questions_path(current_user)) do |f| %>
+    <div class="form-group">
+      <%= f.label :subject_id %>
+      <%= f.select :subject_id, Subject.all.collect {|subject| [subject.name, subject.id]}, {}, {class: "custom-select"} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :content, "Question" %>
+      <%= f.text_area :content, class: "form-control", placeholder: "Enter the question", rows: 5 %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :file %>
+      <div class="custom-file">
+        <%= f.file_field :file, class: "custom-file-input", onchange: "displayFileName()" %>
+        <%= f.label :file, "Choose file", class: "custom-file-label" %> <br>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Answers</label>
+      <%= f.fields_for :answers do |ff| %>
+        <%= render "answer_fields", f: ff, answer: nil %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Create", class: "btn btn-primary btn-block" %>
+    </div>
+  <% end %>
+</div>

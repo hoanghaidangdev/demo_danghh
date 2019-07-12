@@ -14,7 +14,12 @@
       <p class="alert alert-info"><%= notice %></p>
     <% end %>
     <% unless alert.nil? %>
-      <p class="alert alert danger"><%= alert %></p>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+    <% unless flash.nil? %>
+      <% flash.each do |type, msg| %>
+        <p class="alert alert-<%= type %>"><%= msg %></p>
+      <% end %>
     <% end %>
     <div class="container">
       <%= yield %>
