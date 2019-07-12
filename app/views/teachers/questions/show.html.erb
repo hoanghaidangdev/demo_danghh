@@ -1,37 +1,34 @@
-<table class="table table-borderless">
-  <tbody>
-    <tr>
-      <td class="align-top"><b>Question</b></td>
-      <td><p class="pl-3"><%= @question.content %></p></td>
-    </tr>
-    <tr>
-      <td class="align-top"><b>Subject</b></td>
-      <td><p class="pl-3"><%= @question.subject.name %></p></td>
-    </tr>
-    <% unless @question.file_url.nil? %>
-      <tr>
-        <td class="align-top"><b>File attachment</b></td>
-        <td><p class="pl-3"><%= link_to File.basename(@question.file_url), @question.file_url %></p></td>
-      </tr>
-    <% end %>
-    <tr>
-      <td class="align-top"><b>Answers</b></td>
-      <td>
-        <ul class="list-group pl-3 list-group-flush">
+<div class="shadow-lg p-4 mb-4 bg-white" style="border-radius: 1em">
+  <span><b>Question: </b></span>
+  <span class="text-justify"><%= @question.content %></span>
+  <div class="ml-4">
+    <span class="badge badge-info">
+      <%= link_to("Used #{pluralize(@question.exams.count, "time")}",
+      search_teachers_exams_path(id: @question.id), class: "text-light")%>
+    </span>
+    <span class="badge badge-success"><%= link_to @question.subject.name, teachers_subject_path(@question.subject), class: "text-light"%></span>
+    <span class="badge badge-info">
+      <%= link_to "File attachment", @question.file_url, class: "text-light" %>
+    </span>
+    <br>
+    <div class="card border-0">
+      <div class="card-body p-0">
+        <ul class="list-group list-group-flush">
           <% @question.answers.each do |answer| %>
-            <li class= "list-group-item">
-              <% if answer.is_true %>
-                <%= fa_icon "check-circle" %>
-                <%= answer.option %>
-              <% else %>
-                <p class= "pl-3 mb-0">
-                  <%= answer.option %>
-                </p>
-              <% end %>
-            </li>
+            <% if answer.is_true %>
+              <li class="list-group-item custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck" name="example1" disabled checked>
+                <label class="custom-control-label text-dark" for="customCheck"><%= answer.option %></label>
+              </li>
+            <% else %>
+              <li class="list-group-item">
+                <input type="checkbox" class="custom-control-input" id="customCheck" name="example1" disabled>
+                <label class="custom-control-label text-dark" for="customCheck"><%= answer.option %></label>
+              </li>
+            <% end %>
           <% end %>
         </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+</div>

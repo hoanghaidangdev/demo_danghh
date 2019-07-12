@@ -5,6 +5,7 @@ class User < ApplicationRecord
     :validatable, :confirmable
 
   has_many :questions
+  has_many :exams
 
   validates :name, presence: true
   validates :email, format: {with: Regexp.new(Settings.validations.email_regex)},

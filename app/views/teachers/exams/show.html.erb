@@ -1,0 +1,26 @@
+<% @exam.questions.each_with_index do |question, index| %>
+  <div class="shadow-lg p-4 mb-4 bg-white" style="border-radius: 1em">
+    <span><b>Question <%= index + 1 %>: </b></span>
+    <span class="text-justify"><%= question.content %></span>
+    <div class="ml-4">
+      <%= link_to "File attachment", question.file_url, class: "text-light" %>
+      <br>
+      <div class="card border-0">
+        <div>
+          <div class="card-body p-0">
+            <ul class="list-group list-group-flush">
+              <% question.answers.each_with_index do |answer, index| %>
+                <li class="list-group-item">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck-<%= question.id %>-<%= index %>" name="example" >
+                    <label class="custom-control-label text-dark" for="customCheck-<%= question.id %>-<%= index %>"><%= answer.option %></label>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
