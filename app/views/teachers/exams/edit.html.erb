@@ -1,0 +1,4 @@
+<%= form_for @exam, url: teachers_exam_path do |f| %>
+  <h2 class="text-center mt-5">Edit exam</h2>
+  <%= render "exam_form", f: f, exam: @exam, questions: @questions %>
+<% end %>

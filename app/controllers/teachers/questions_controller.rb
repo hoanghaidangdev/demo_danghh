@@ -1,6 +1,7 @@
 module Teachers
   class QuestionsController < ApplicationController
-    before_action :find_question, only: [:show, :edit, :update, :destroy]
+    before_action :find_question, only: [:edit, :update, :destroy]
+    before_action :find_question_without_authenticate, only: :show
 
     def index
       @questions = Question.all
@@ -45,6 +46,10 @@ module Teachers
 
     def find_question
       @question = current_user.questions.find(params[:id])
+    end
+
+    def find_question_without_authenticate
+      @question = Question.find(params[:id])
     end
   end
 end

@@ -1,14 +1,21 @@
 <% @questions.each do |question| %>
-  <div>
-    <h3><%= link_to truncate(question.content, length: 80), teachers_question_path(question) %></h3>
-    <p><%= pluralize question.answers.count, "answer" %>, <%= question.file.nil? ? 0 : 1 %> file attachment</p>
-    <p>Updated by <%= question.user.name %> at <%= time_ago_in_words question.updated_at %> ago</p>
+  <div class="shadow-lg p-4 mb-4 bg-white" style="border-radius: 1em">
+    <h3><%= link_to truncate(question.content, length: 75), teachers_question_path(question) %></h3>
+    <small><%= pluralize question.answers.count, "answer" %>,
+      <%= pluralize question.file.blank? ? 0 : 1 , "file attachment" %>,
+      updated by <%= question.user.name %>
+      at <%= time_ago_in_words question.updated_at %></small>
+      <br>
+      <span class="badge badge-info">
+        <%= link_to("Used #{pluralize(question.exams.count, "time")}",
+        search_teachers_exams_path(id: question.id), class: "text-light")%>
+      </span>
+      <span class="badge badge-success"><%= link_to question.subject.name, teachers_subject_path(question.subject), class: "text-light"%></span>
     <% if question.user == current_user %>
-      <ul class="breadcrumb bg-light">
-        <li class= "breadcrumb-item"><%= link_to "Edit", edit_teachers_question_path(question) %></li>
-        <li class= "breadcrumb-item"><%= link_to "Delete", teachers_question_path(question), method: :delete %></li>
+      <ul class="breadcrumb pl-0" style="background-color: rgba(0,0,0,0)">
+        <li class="breadcrumb-item"><%= link_to "Edit", edit_teachers_question_path(question) %></li>
+        <li class="breadcrumb-item"><%= link_to "Delete", teachers_question_path(question), method: :delete %></li>
       </ul>
     <% end %>
-    <hr>
   </div>
 <% end %>
