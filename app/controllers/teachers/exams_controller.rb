@@ -1,7 +1,6 @@
 module Teachers
   class ExamsController < ApplicationController
-    before_action :find_exam, only: [:edit, :update, :destroy]
-    before_action :find_exam_without_authenticate, only: :show
+    before_action :find_exam, only: [:show, :edit, :update, :destroy]
 
     def index
       @exams = Exam.all
@@ -17,10 +16,12 @@ module Teachers
     def create
       @exam = Exam.new exam_params
       @exam.user = current_user
-      if @exam.questions.blank? || !@exam.save
-        redirect_to new_teachers_exam_path
-      else
+      if @exam.save
         redirect_to teachers_exams_path
+      else
+        # @exam = Exam.new
+        @questions = Question.all
+        render :new
       end
     end
 
@@ -29,10 +30,12 @@ module Teachers
     end
 
     def update
-      if params[:exam][:question_ids] == [""] || !@exam.update_attributes(exam_params)
-        redirect_to edit_teachers_exam_path
-      else
+      if @exam.update_attributes(exam_params)
         redirect_to teachers_exams_path
+      else
+        @questions = Question.all
+        find_exam
+        render :edit
       end
     end
 
@@ -51,11 +54,7 @@ module Teachers
     end
 
     def find_exam
-      @exam = current_user.exams.find(params[:id])
-    end
-
-    def find_exam_without_authenticate
-      @exam = Exam.find(params[:id])
+      @exam = params[:action] == "create" ? Exam.find(params[:id]) : current_user.exams.find(params[:id])
     end
   end
 end

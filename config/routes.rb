@@ -9,4 +9,10 @@ Rails.application.routes.draw do
     end
     resources :subjects, only: :show
   end
+
+  namespace :students do
+    resources :exams, only: [:index, :new, :create]
+    resources :confirmations, only: [:new, :create]
+    resources :log_exams, only: [:index, :show]
+  end
 end

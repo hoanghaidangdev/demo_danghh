@@ -1,0 +1,10 @@
+<% @exams.each do |exam| %>
+  <div class="shadow-lg p-4 mb-4 bg-white" style="border-radius: 1em">
+    <h3><%= link_to exam.name, teachers_exam_path(exam) %></h3>
+    <small><%= pluralize exam.questions.count, "question" %>,
+      updated by <%= exam.user.name %>
+      at <%= time_ago_in_words exam.updated_at %></small>
+      <br>
+    <%= link_to "Start now", new_students_confirmation_path(exam_id: exam.id) %>
+  </div>
+<% end %>

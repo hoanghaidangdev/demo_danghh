@@ -1,0 +1,38 @@
+.is-countdown {
+  border: none;
+  background-color: white;
+}
+.countdown-rtl {
+  direction: rtl;
+}
+.countdown-holding span {
+  color: white;
+}
+.countdown-row {
+  clear: both;
+  width: 100%;
+  padding: 0px 2px;
+  text-align: center;
+}
+.countdown-show3 .countdown-section {
+  width: 32.5%;
+}
+.countdown-section {
+  display: block;
+  float: left;
+  font-size: 75%;
+  text-align: center;
+}
+.countdown-amount {
+    font-size: 200%;
+}
+.countdown-period {
+    display: block;
+}
+.countdown-descr {
+  display: block;
+  width: 100%;
+}
+.timer{
+  width: 24%;
+}

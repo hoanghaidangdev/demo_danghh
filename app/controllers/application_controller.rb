@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if current_user.teacher?
       teachers_questions_path
+    elsif current_user.student?
+      students_exams_path
     end
   end
 

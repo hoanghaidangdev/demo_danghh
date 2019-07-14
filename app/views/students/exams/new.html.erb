@@ -1,0 +1,44 @@
+<%= hidden_field_tag :remaining_time, @exam.time_for_exam * 60 %>
+<div class="timer m-auto">
+  <h4 class="text-center">Remaining Time</h4>
+  <div id="clock"></div>
+</div>
+<br>
+<br>
+<%= form_for @log_exam, url: students_exams_path, method: :post do |exam_form| %>
+  <%= exam_form.hidden_field :log_exam_id, value: @log_exam.id %>
+  <% @exam.questions.each_with_index do |question, index| %>
+    <%= exam_form.fields_for :log_questions, @log_question do |question_form| %>
+      <div class="shadow-lg p-4 mb-4 bg-white" style="border-radius: 1em">
+        <span><b>Question <%= index + 1 %>: </b></span>
+        <%= question_form.hidden_field :subject_name, value: question.subject.name %>
+        <%= question_form.hidden_field :content, value: question.content %>
+        <span class="text-justify"><%= question.content %></span>
+        <div class="ml-4">
+          <%= link_to "File attachment", question.file_url %>
+          <br>
+          <div class="card border-0">
+            <div>
+              <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                  <% question.answers.each_with_index do |answer, index| %>
+                    <%= question_form.fields_for :log_answers, @log_answer do |answer_form| %>
+                      <%= answer_form.hidden_field :option, value: answer.option %>
+                      <li class="list-group-item">
+                        <div class="custom-control custom-checkbox">
+                          <%= answer_form.check_box :is_true, {class: "custom-control-input"}, true, false %>
+                          <%= answer_form.label :is_true, answer.option, class: "custom-control-label text-dark" %>
+                        </div>
+                      </li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <%= exam_form.button "Submit", class: "btn btn-primary submit-time-out mb-4" %>
+<% end %>
