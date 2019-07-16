@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190714035938) do
+ActiveRecord::Schema.define(version: 20190718031900) do
 
   create_table "answers", force: :cascade do |t|
     t.string "option"
@@ -49,22 +49,20 @@ ActiveRecord::Schema.define(version: 20190714035938) do
   end
 
   create_table "log_exams", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.integer "score", default: 0
-    t.string "code"
     t.integer "teacher_id"
-    t.integer "exam_id"
-    t.boolean "submitted", default: false
-    t.boolean "activated", default: false
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
+    t.integer "exam_id"
+    t.index ["exam_id"], name: "index_log_exams_on_exam_id"
     t.index ["user_id"], name: "index_log_exams_on_user_id"
   end
 
   create_table "log_questions", force: :cascade do |t|
     t.text "content"
-    t.string "file"
     t.string "subject_name"
     t.integer "log_exam_id"
     t.datetime "created_at", null: false

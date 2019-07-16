@@ -5,6 +5,14 @@
       updated by <%= exam.user.name %>
       at <%= time_ago_in_words exam.updated_at %></small>
       <br>
-    <%= link_to "Start now", new_students_confirmation_path(exam_id: exam.id) %>
+    <% exam.questions.group_by(&:subject).each do |k, v| %>
+      <span class="badge badge-success"><%= k.name %></span>
+    <% end %>
+    <br>
+    <% if approved_log_exam(exam).nil? %>
+      <%= link_to "Send request to teacher", students_log_exams_path(exam_id: exam.id), method: :post %>
+    <% else %>
+      <%= link_to "Start now", edit_students_log_exam_path(approved_log_exam exam) %>
+    <% end %>
   </div>
 <% end %>

@@ -5,10 +5,10 @@
 </div>
 <br>
 <br>
-<%= form_for @log_exam, url: students_exams_path, method: :post do |exam_form| %>
+<%= form_for @log_exam, url: students_log_exam_path, method: :put do |exam_form| %>
   <%= exam_form.hidden_field :log_exam_id, value: @log_exam.id %>
   <% @exam.questions.each_with_index do |question, index| %>
-    <%= exam_form.fields_for :log_questions, @log_question do |question_form| %>
+    <%= exam_form.fields_for :log_questions, LogQuestion.new do |question_form| %>
       <div class="shadow-lg p-4 mb-4 bg-white" style="border-radius: 1em">
         <span><b>Question <%= index + 1 %>: </b></span>
         <%= question_form.hidden_field :subject_name, value: question.subject.name %>
@@ -22,7 +22,7 @@
               <div class="card-body p-0">
                 <ul class="list-group list-group-flush">
                   <% question.answers.each_with_index do |answer, index| %>
-                    <%= question_form.fields_for :log_answers, @log_answer do |answer_form| %>
+                    <%= question_form.fields_for :log_answers, LogAnswer.new do |answer_form| %>
                       <%= answer_form.hidden_field :option, value: answer.option %>
                       <li class="list-group-item">
                         <div class="custom-control custom-checkbox">

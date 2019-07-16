@@ -1,17 +1,11 @@
 class Exam < ApplicationRecord
   has_many :exam_questions, dependent: :destroy
   has_many :questions, through: :exam_questions
+  has_many :log_exams
   belongs_to :user
 
-  validates :name, presence: true, presence: true,
+  validates :name, presence: true, uniqueness: {scope: :user},
     length: {maximum: Settings.validations.strings.max_length}
   validates :time_for_exam, presence: true
-  validate :check_blank_question
-
-  private
-  def check_blank_question
-    if self.questions.blank?
-      errors.add(:danger, "Can't create new exam with 0 question")
-    end
-  end
+  validates :questions, presence: true
 end

@@ -11,10 +11,18 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Exams</a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Exam</a>
           <div class="dropdown-menu">
             <%= link_to "Exams list", teachers_exams_path, class: 'dropdown-item' %>
             <%= link_to "New exam", new_teachers_exam_path, class: 'dropdown-item' %>
+          </div>
+        </li>
+      <% elsif %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Exam</a>
+          <div class="dropdown-menu">
+            <%= link_to "Exams list", students_exams_path, class: 'dropdown-item' %>
+            <%= link_to "Review answered exam", students_log_exams_path, class: 'dropdown-item' %>
           </div>
         </li>
       <% end %>

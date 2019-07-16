@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: "registrations"}
   namespace :teachers do
     resources :questions
+    resources :log_exams, only: [:update, :destroy]
     resources :exams do
       collection do
         get :search
@@ -11,8 +12,7 @@ Rails.application.routes.draw do
   end
 
   namespace :students do
-    resources :exams, only: [:index, :new, :create]
-    resources :confirmations, only: [:new, :create]
-    resources :log_exams, only: [:index, :show]
+    resources :exams, only: :index
+    resources :log_exams, except: [:new, :destroy]
   end
 end

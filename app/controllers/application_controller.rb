@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       :avatar_cache,:remove_avatar)}
   end
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for resource
     if current_user.teacher?
       teachers_questions_path
     elsif current_user.student?
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_out_path_for(resource)
+  def after_sign_out_path_for resource
     new_user_session_path
   end
 end
