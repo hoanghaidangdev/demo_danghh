@@ -4,7 +4,15 @@
     <small><%= pluralize exam.questions.count, "question" %>,
       updated by <%= exam.user.name %>
       at <%= time_ago_in_words exam.updated_at %></small>
+    <br>
     <% if exam.user == current_user %>
+      <% exam_requested(exam.id).each do |log_exam| %>
+       <small class="clearfix">
+          <%= log_exam.user.name %> sent request at <%= time_ago_in_words log_exam.created_at %>
+          <%= link_to "Accept", teachers_log_exam_path(id: log_exam.id), method: :put %> /
+          <%= link_to "Deny", teachers_log_exam_path(log_exam), method: :delete %>
+       </small>
+      <% end %>
       <ul class="breadcrumb pl-0" style="background-color: rgba(0,0,0,0)">
         <li class="breadcrumb-item"><%= link_to "Edit", edit_teachers_exam_path(exam) %></li>
         <li class="breadcrumb-item"><%= link_to "Delete", teachers_exam_path(exam), method: :delete %></li>

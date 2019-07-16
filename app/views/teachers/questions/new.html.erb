@@ -1,5 +1,12 @@
 <div class="w-50 m-auto">
   <h2 class="text-center mt-5">Create new question</h2>
+  <% if @question.errors.any? %>
+    <ul class="list-group list-group-flush">
+      <% @question.errors.full_messages.each do |msg| %>
+        <li class="list-group-item allert alert-danger"><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <%= form_for(@question, url: teachers_questions_path(current_user)) do |f| %>
     <div class="form-group">
       <%= f.label :subject_id %>

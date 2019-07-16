@@ -4,6 +4,7 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :exam_questions, dependent: :destroy
   has_many :exams, through: :exam_questions
+  has_many :log_questions
 
   validates :subject, presence: true,
     length: {maximum: Settings.validations.strings.max_length}

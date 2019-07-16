@@ -1,9 +1,9 @@
 class CreateLogExams < ActiveRecord::Migration[5.1]
   def change
     create_table :log_exams do |t|
-      t.string :name
+      t.string :name, null: false
       t.integer :score, default: 0
-      t.string :code
+      t.string :code, null: false
       t.integer :teacher_id
       t.integer :exam_id
       t.boolean :submitted, default: false

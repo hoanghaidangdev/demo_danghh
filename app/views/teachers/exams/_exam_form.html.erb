@@ -1,3 +1,10 @@
+<% if @exam.errors.any? %>
+  <ul class="list-group list-group-flush">
+    <% @exam.errors.full_messages.each do |msg| %>
+      <li class="list-group-item allert alert-danger"><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
 <div class="form-group">
   <%= f.label :name, "Exam name" %>
   <%= f.text_field :name, class: "form-control", placeholder: "Enter exam name", value: exam.name %>

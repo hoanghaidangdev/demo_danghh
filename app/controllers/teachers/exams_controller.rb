@@ -1,12 +1,14 @@
 module Teachers
   class ExamsController < ApplicationController
-    before_action :find_exam, only: [:show, :edit, :update, :destroy]
+    before_action :find_exam, only: [:edit, :update, :destroy]
 
     def index
       @exams = Exam.all
     end
 
-    def show ; end
+    def show
+      @exam = Exam.find params[:id]
+    end
 
     def new
       @exam = Exam.new
@@ -19,7 +21,6 @@ module Teachers
       if @exam.save
         redirect_to teachers_exams_path
       else
-        # @exam = Exam.new
         @questions = Question.all
         render :new
       end
@@ -31,10 +32,9 @@ module Teachers
 
     def update
       if @exam.update_attributes(exam_params)
-        redirect_to teachers_exams_path
+        redirect_to teachers_exam_path
       else
         @questions = Question.all
-        find_exam
         render :edit
       end
     end
@@ -54,7 +54,7 @@ module Teachers
     end
 
     def find_exam
-      @exam = params[:action] == "create" ? Exam.find(params[:id]) : current_user.exams.find(params[:id])
+      @exam = current_user.exams.find params[:id]
     end
   end
 end
