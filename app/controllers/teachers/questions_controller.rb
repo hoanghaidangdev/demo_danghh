@@ -1,12 +1,14 @@
 module Teachers
   class QuestionsController < ApplicationController
-    before_action :find_question, only: [:show, :edit, :update, :destroy]
+    before_action :find_question, only: [:edit, :update, :destroy]
 
     def index
       @questions = Question.all
     end
 
-    def show ; end
+    def show
+      @question = Question.find(params[:id])
+    end
 
     def new
       @question = current_user.questions.new

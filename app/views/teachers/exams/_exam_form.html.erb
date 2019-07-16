@@ -1,0 +1,67 @@
+<% if @exam.errors.any? %>
+  <ul class="list-group list-group-flush">
+    <% @exam.errors.full_messages.each do |msg| %>
+      <li class="list-group-item allert alert-danger"><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+<div class="form-group">
+  <%= f.label :name, "Exam name" %>
+  <%= f.text_field :name, class: "form-control", placeholder: "Enter exam name", value: exam.name %>
+</div>
+
+<div class="form-group">
+  <%= f.label :time_for_exam %>
+  <%= f.select :time_for_exam, options_for_select([15, 45, 90, 120, 180]), {prompt: "- Select -"}, {class: "form-control", selected: exam.time_for_exam} %>
+</div>
+<div class="form-group">
+  <label>Select questions</label>
+  <%= f.collection_check_boxes :question_ids, questions, :id, :content do |b| %>
+    <div class="shadow-lg p-4 mb-4 bg-white" style="border-radius: 1em">
+      <div class="custom-control custom-checkbox">
+        <%= b.check_box class: "custom-control-input" %>
+        <%= b.label class: "custom-control-label text-justify" %>
+      </div>
+      <div class="ml-4">
+        <span class="badge badge-info">
+          <%= link_to("Used #{pluralize(b.object.exams.count, "time")}",
+            search_teachers_exams_path(id: b.object.id), class: "text-light") %>
+        </span>
+        <span class="badge badge-success"><%= link_to b.object.subject.name, teachers_subject_path(b.object.subject), class: "text-light"%></span>
+        <span class="badge badge-info">
+          <%= link_to "File attachment", b.object.file_url, class: "text-light" %>
+        </span>
+        <br>
+        <div id="accordion-<%= b.object.id %>">
+          <div class="card border-0">
+            <div class="card-header pl-0 border-bottom-0">
+              <a class="card-link text-dark" data-toggle="collapse" href="#collapse-answers-<%= b.object.id %>">
+                Show answers
+              </a>
+            </div>
+            <div id="collapse-answers-<%= b.object.id %>" class="collapse" data-parent="#accordion-<%= b.object.id %>">
+              <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                  <% b.object.answers.each do |answer| %>
+                    <% if answer.is_true %>
+                      <li class="list-group-item custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck" name="example1" disabled checked>
+                        <label class="custom-control-label text-dark" for="customCheck"><%= answer.option %></label>
+                      </li>
+                    <% else %>
+                      <li class="list-group-item">
+                        <input type="checkbox" class="custom-control-input" id="customCheck" name="example1" disabled>
+                        <label class="custom-control-label text-dark" for="customCheck"><%= answer.option %></label>
+                      </li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= f.submit "Submit", class: "btn btn-primary" %>

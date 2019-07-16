@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190711032234) do
+ActiveRecord::Schema.define(version: 20190712024616) do
 
   create_table "answers", force: :cascade do |t|
     t.string "option"
@@ -34,6 +34,9 @@ ActiveRecord::Schema.define(version: 20190711032234) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "time_for_exam"
+    t.index ["user_id"], name: "index_exams_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -64,7 +67,7 @@ ActiveRecord::Schema.define(version: 20190711032234) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "name"
-    t.integer "role", default: 0
+    t.integer "role"
     t.string "gender"
     t.string "avatar"
     t.string "phone"
