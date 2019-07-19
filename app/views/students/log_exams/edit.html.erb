@@ -11,8 +11,7 @@
     <%= exam_form.fields_for :log_questions, LogQuestion.new do |question_form| %>
       <div class="shadow-lg p-4 mb-4 bg-white" style="border-radius: 1em">
         <span><b>Question <%= index + 1 %>: </b></span>
-        <%= question_form.hidden_field :subject_name, value: question.subject.name %>
-        <%= question_form.hidden_field :content, value: question.content %>
+        <%= question_form.hidden_field :question_id, value: question.id %>
         <span class="text-justify"><%= question.content %></span>
         <div class="ml-4">
           <%= link_to "File attachment", question.file_url %>
@@ -23,11 +22,10 @@
                 <ul class="list-group list-group-flush">
                   <% question.answers.each_with_index do |answer, index| %>
                     <%= question_form.fields_for :log_answers, LogAnswer.new do |answer_form| %>
-                      <%= answer_form.hidden_field :option, value: answer.option %>
                       <li class="list-group-item">
                         <div class="custom-control custom-checkbox">
-                          <%= answer_form.check_box :is_true, {class: "custom-control-input"}, true, false %>
-                          <%= answer_form.label :is_true, answer.option, class: "custom-control-label text-dark" %>
+                          <%= answer_form.check_box :answer_id, {class: "custom-control-input"}, answer.id, nil %>
+                          <%= answer_form.label :answer_id, answer.option, class: "custom-control-label text-dark" %>
                         </div>
                       </li>
                     <% end %>

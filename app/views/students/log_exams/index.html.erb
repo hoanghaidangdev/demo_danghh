@@ -1,6 +1,6 @@
 <% @log_exams.each do |log_exam| %>
   <div class="shadow-lg p-4 mb-4 bg-white" style="border-radius: 1em">
-    <h3><%= link_to log_exam.name, students_log_exam_path(log_exam) %></h3>
+    <h3><%= link_to log_exam.exam.name, students_log_exam_path(log_exam) %></h3>
     <small><%= pluralize log_exam.log_questions.count, "question" %>,
       completed at <%= time_ago_in_words log_exam.updated_at %></small>
   </div>

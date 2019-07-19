@@ -5,21 +5,17 @@ class LogExam < ApplicationRecord
   belongs_to :exam
   has_many :log_questions
 
+  after_update :update_score, if: :status_changed?
+
   accepts_nested_attributes_for :log_questions
 
-  scope :submitted, -> {where status: :submitted}
-
   def update_score
+    return unless self.submitted?
     score = 0
-    self.exam.questions.each_with_index do |question, ques_index|
-      log_question = self.log_questions[ques_index]
-      check = true
-      question.answers.each_with_index do |answer, ans_index|
-        log_answer = log_question.log_answers[ans_index]
-        check = false if log_answer.is_true != answer.is_true
-      end
-      score += 1 if check == true
+    self.log_questions.each do |log_question|
+      score += 1 if log_question.question.answers.true_answers.ids
+        .sort == log_question.log_answers.pluck(:answer_id).sort
     end
-    self.update_attributes! score: score
+    self.update_column :score, score
   end
 end

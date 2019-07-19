@@ -1,33 +1,40 @@
-<h2 class="text-center">Total score: <%= @log_exam.score %></h2>
-<% @log_exam.log_questions.each_with_index do |log_question, ques_index| %>
-  <% question = @exam.questions[ques_index] %>
+<h2 class= "text-center">Total score: <%= @log_exam.score %></h2>
+<% @log_exam.exam.questions.each_with_index do |question, ques_index| %>
+  <% log_question = @log_exam.log_questions[ques_index] %>
   <div class="shadow-lg p-4 mb-4 bg-white" style="border-radius: 1em">
     <span><b>Question <%= ques_index + 1 %>: </b></span>
-    <span class="text-justify"><%= log_question.content %></span>
+    <span class="text-justify"><%= question.content %></span>
     <div class="ml-4">
       <br>
       <div class="card border-0">
         <div>
           <div class="card-body p-0">
             <ul class="list-group list-group-flush">
-              <% log_question.log_answers.each_with_index do |log_answer, ans_index| %>
-                <% answer = question.answers[ans_index] %>
-                <% if log_answer.is_true %>
+              <% question.answers.each do |answer| %>
+                <% if log_question.log_answers.pluck(:answer_id).include? answer.id %>
                   <li class="list-group-item custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="customCheck" name="example1" disabled checked>
-                    <% if answer.is_true %>
-                      <label class="custom-control-label text-dark" for="customCheck" style="background-color: #E6FFED"><%= log_answer.option %></label>
+                    <% if answer.is_true%>
+                      <label class="custom-control-label text-dark" for="customCheck" style="background-color: #E6FFED">
+                        <%= answer.option %>
+                      </label>
                     <% else %>
-                      <label class="custom-control-label text-dark" for="customCheck"><%= log_answer.option %></label>
+                      <label class="custom-control-label text-dark" for="customCheck">
+                        <%= answer.option %>
+                      </label>
                     <% end %>
                   </li>
                 <% else %>
-                  <li class="list-group-item">
+                  <li class="list-group-item custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="customCheck" name="example1" disabled>
-                    <% if answer.is_true %>
-                      <label class="custom-control-label text-dark" for="customCheck" style="background-color: #E6FFED"><%= log_answer.option %></label>
+                    <% if answer.is_true%>
+                      <label class="custom-control-label text-dark" for="customCheck" style="background-color: #E6FFED">
+                        <%= answer.option %>
+                      </label>
                     <% else %>
-                      <label class="custom-control-label text-dark" for="customCheck"><%= log_answer.option %></label>
+                      <label class="custom-control-label text-dark" for="customCheck">
+                        <%= answer.option %>
+                      </label>
                     <% end %>
                   </li>
                 <% end %>
