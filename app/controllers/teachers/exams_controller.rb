@@ -7,7 +7,7 @@ module Teachers
     end
 
     def show
-      @exam = Exam.find(params[:id])
+      @exam = Exam.find params[:id]
     end
 
     def new
@@ -54,7 +54,7 @@ module Teachers
     end
 
     def find_exam
-      @exam = current_user.exams.find(params[:id])
+      @exam = current_user.exams.find params[:id]
     end
   end
 end

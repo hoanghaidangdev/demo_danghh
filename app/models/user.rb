@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :questions
   has_many :exams
+  has_many :log_exams
 
   validates :name, presence: true
   validates :email, format: {with: Regexp.new(Settings.validations.email_regex)},

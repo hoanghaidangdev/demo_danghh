@@ -21,8 +21,10 @@ gem "carrierwave"
 gem "mini_magick"
 gem "cancancan"
 gem "config"
+gem "jquery-countdown-rails"
 
 group :development, :test do
+  gem "seed_dump"
   gem "pry"
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "capybara", "~> 2.13"

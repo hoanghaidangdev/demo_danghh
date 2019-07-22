@@ -7,7 +7,7 @@ module Teachers
     end
 
     def show
-      @question = Question.find(params[:id])
+      @question = Question.find params[:id]
     end
 
     def new
@@ -46,7 +46,7 @@ module Teachers
     end
 
     def find_question
-      @question = current_user.questions.find(params[:id])
+      @question = current_user.questions.find params[:id]
     end
   end
 end

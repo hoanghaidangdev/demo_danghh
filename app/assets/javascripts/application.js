@@ -5,3 +5,5 @@
 //= require turbolinks
 //= require_tree .
 //= require questions.js
+//= require jquery.countdown
+//= require countdown_timer
