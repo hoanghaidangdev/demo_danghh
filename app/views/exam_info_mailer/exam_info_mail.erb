@@ -1,0 +1,5 @@
+<p>Hello <%= @teacher.name %>!</p>
+<p><%= @student.name %> has been completed your exam </p>
+<p>Score: <%= @log_exam.score %></p>
+<p>View your exam: <%= link_to "Exam link", teachers_exam_url(@log_exam.exam) %></p>
+<p>Review this exam: <%= link_to "Review exam", teachers_log_exam_url(@log_exam) %> </p>

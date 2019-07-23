@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: {registrations: "registrations"}
   namespace :teachers do
     resources :questions
-    resources :log_exams, only: [:update, :destroy]
+    resources :log_exams, only: [:index, :show, :update, :destroy]
     resources :exams do
       collection do
         get :search
@@ -15,4 +16,6 @@ Rails.application.routes.draw do
     resources :exams, only: :index
     resources :log_exams, except: [:new, :destroy]
   end
+
+  root "application#index"
 end

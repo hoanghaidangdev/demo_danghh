@@ -1,14 +1,13 @@
 module Teachers
   class QuestionsController < ApplicationController
-    before_action :find_question, only: [:edit, :update, :destroy]
+    before_action :find_question, only: [:show, :edit, :update, :destroy]
+    before_action :check_permission
 
     def index
       @questions = Question.all
     end
 
-    def show
-      @question = Question.find params[:id]
-    end
+    def show ; end
 
     def new
       @question = current_user.questions.new
@@ -46,7 +45,18 @@ module Teachers
     end
 
     def find_question
-      @question = current_user.questions.find params[:id]
+      @question = Question.find params[:id]
+    end
+
+    def check_permission
+      case params[:action]
+      when "index", "show"
+        redirect_to root_path if cannot? :read, Question
+      when "new", "create"
+        redirect_to root_path if cannot? :create, Question
+      when "edit", "update", "destroy"
+        redirect_to root_path if @question.user != current_user
+      end
     end
   end
 end
