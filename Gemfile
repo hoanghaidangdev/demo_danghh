@@ -22,6 +22,7 @@ gem "mini_magick"
 gem "cancancan"
 gem "config"
 gem "jquery-countdown-rails"
+gem "rails_admin"
 
 group :development, :test do
   gem "seed_dump"

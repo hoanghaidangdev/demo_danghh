@@ -1,14 +1,13 @@
 module Teachers
   class ExamsController < ApplicationController
-    before_action :find_exam, only: [:edit, :update, :destroy]
+    before_action :find_exam, only: [:show, :edit, :update, :destroy]
+    before_action :check_permission
 
     def index
       @exams = Exam.all
     end
 
-    def show
-      @exam = Exam.find params[:id]
-    end
+    def show ; end
 
     def new
       @exam = Exam.new
@@ -54,7 +53,18 @@ module Teachers
     end
 
     def find_exam
-      @exam = current_user.exams.find params[:id]
+      @exam = Exam.find params[:id]
+    end
+
+    def check_permission
+      case params[:action]
+      when "index", "show"
+        redirect_to root_path if cannot? :read, Exam
+      when "new", "create"
+        redirect_to root_path if cannot? :create, Exam
+      when "edit", "update", "destroy"
+        redirect_to root_path if @exam.user != current_user
+      end
     end
   end
 end
