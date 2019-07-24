@@ -23,6 +23,8 @@ gem "cancancan"
 gem "config"
 gem "jquery-countdown-rails"
 gem "rails_admin"
+gem "whenever", require: false
+gem "sidekiq"
 
 group :development, :test do
   gem "seed_dump"

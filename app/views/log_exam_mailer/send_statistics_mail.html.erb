@@ -1,0 +1,11 @@
+<% @teacher.exams.each do |exam| %>
+  <%= link_to exam.name, teachers_exam_url(exam) %>
+  <ul>
+    <% exam.log_exams.log_exams_submitted_yesterday.each do |log_exam| %>
+      <li>
+        <p><%= log_exam.user.name %> completed at <%= time_ago_in_words log_exam.updated_at %> ago</p>
+        <%= link_to "View", teachers_log_exam_url(log_exam) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

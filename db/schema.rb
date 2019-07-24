@@ -40,8 +40,6 @@ ActiveRecord::Schema.define(version: 20190719060145) do
   end
 
   create_table "log_answers", force: :cascade do |t|
-    t.string "option"
-    t.boolean "is_true", default: false
     t.integer "log_question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -51,7 +49,6 @@ ActiveRecord::Schema.define(version: 20190719060145) do
   end
 
   create_table "log_exams", force: :cascade do |t|
-    t.string "name", null: false
     t.integer "score", default: 0
     t.integer "teacher_id"
     t.integer "user_id"
@@ -64,8 +61,6 @@ ActiveRecord::Schema.define(version: 20190719060145) do
   end
 
   create_table "log_questions", force: :cascade do |t|
-    t.text "content"
-    t.string "subject_name"
     t.integer "log_exam_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
