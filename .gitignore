@@ -28,3 +28,4 @@ config/environments/*.local.yml
 /public/*
 /vendor/*
 config/application.yml
+.idea
